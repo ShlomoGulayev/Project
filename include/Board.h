@@ -19,6 +19,7 @@
 #include "Gate.h"
 #include "Ogre.h"
 #include "Fire.h"
+#include "Gnome.h"
 
 using std::vector;
 using std::string;

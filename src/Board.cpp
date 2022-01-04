@@ -55,6 +55,7 @@ static std::unique_ptr<MovingObject> createMovableObject(const char c,
 	case 'M': return std::make_unique<Mage>(loc, textures[MAGE]);
 	case 'W': return std::make_unique<Warrior>(loc, textures[WARRIOR]);
 	case 'T': return std::make_unique<Thief>(loc, textures[THIEF]);
+	case '^': return std::make_unique<Gnome>(loc, textures[GNOME]);
 	}
 	return nullptr;
 }
@@ -80,6 +81,7 @@ void Board::createObject(sf::Texture textures[])
 {
 	int width_space = BOARD_WIDTH / m_cols;
 	int height_space = BOARD_HEIGHT / m_rows;
+	std::unique_ptr<MovingObject> gnome = nullptr;
 	for (int row = 0; row < m_rows; row++)
 	{
 		for (int col = 0; col < m_cols; col++)
@@ -91,11 +93,19 @@ void Board::createObject(sf::Texture textures[])
 				std::unique_ptr<MovingObject> movable = createMovableObject(c, loc, textures);
 				m_characters->push_back(std::move(movable));
 			}
+			else if (c == '^')
+			{
+				gnome = createMovableObject(c, loc, textures);
+			}
 			else if (c != ' ')
 			{
 				std::unique_ptr<StaticObject> unmovable = createStaticObject(c, loc, textures);
 				m_static_objects.push_back(std::move(unmovable));
 			}
 		}
+	}
+	if (gnome != nullptr)
+	{
+		m_characters->push_back(std::move(gnome));
 	}
 }

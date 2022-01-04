@@ -8,4 +8,5 @@
 											  "King.cpp"
 											  "Mage.cpp"
 											  "Warrior.cpp"
-											  "Thief.cpp")
+											  "Thief.cpp"
+											  "Gnome.cpp")
