@@ -19,7 +19,7 @@ void MovingObject::setDirection(sf::Keyboard::Key key)
 //---------------------------------------------------
 void MovingObject::move(sf::Time deltaTime)
 {
-	const auto speedPerSecond = 75.f;
+	const auto speedPerSecond = 100.f;
 	m_sprite.move(m_direction * speedPerSecond * deltaTime.asSeconds());
 	m_location += m_direction;
 }

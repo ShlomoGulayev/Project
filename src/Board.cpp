@@ -10,7 +10,7 @@ Board::Board()
 	:m_rows(0), m_cols(0), m_characters(nullptr)
 {}
 //---------------------------------------------------
-void Board::setBoard(sf::Texture textures[], vector< unique_ptr <MovingObject > >& characters)
+void Board::setBoard(sf::Texture textures[], vector< unique_ptr <MovingObject > >& characters, vector< unique_ptr <MovingObject > >& gnomes)
 {
 	ifstream in;
 	in.open("Board.txt");	//open the file
@@ -32,6 +32,7 @@ void Board::setBoard(sf::Texture textures[], vector< unique_ptr <MovingObject > 
 	in.close();
 	
 	m_characters = &characters;
+	m_gnomes = &gnomes;
 	createObject(textures);
 }
 
@@ -40,6 +41,8 @@ void Board::draw(sf::RenderWindow& window)
 {
 	for (int i = 0; i < m_characters[0].size(); i++)
 		m_characters[0][i]->draw(window);
+	for (int i = 0; i < m_gnomes[0].size(); i++)
+		m_gnomes[0][i]->draw(window);
 	for (int i = 0; i < m_static_objects.size(); i++)
 		m_static_objects[i]->draw(window);
 }
@@ -81,7 +84,6 @@ void Board::createObject(sf::Texture textures[])
 {
 	int width_space = BOARD_WIDTH / m_cols;
 	int height_space = BOARD_HEIGHT / m_rows;
-	std::unique_ptr<MovingObject> gnome = nullptr;
 	for (int row = 0; row < m_rows; row++)
 	{
 		for (int col = 0; col < m_cols; col++)
@@ -95,7 +97,8 @@ void Board::createObject(sf::Texture textures[])
 			}
 			else if (c == '^')
 			{
-				gnome = createMovableObject(c, loc, textures);
+				std::unique_ptr<MovingObject> movable = createMovableObject(c, loc, textures);
+				m_gnomes->push_back(std::move(movable));
 			}
 			else if (c != ' ')
 			{
@@ -103,9 +106,5 @@ void Board::createObject(sf::Texture textures[])
 				m_static_objects.push_back(std::move(unmovable));
 			}
 		}
-	}
-	if (gnome != nullptr)
-	{
-		m_characters->push_back(std::move(gnome));
 	}
 }

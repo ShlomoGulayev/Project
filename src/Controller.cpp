@@ -5,7 +5,7 @@ Controller::Controller(sf::RenderWindow& window)
 : m_window(&window), m_curr_character(0)
 {
     loadTextures();
-    m_board.setBoard(m_textures, m_characters);
+    m_board.setBoard(m_textures, m_characters, m_gnomes);
 }
 //------------------------------------------------------
 void Controller::run()

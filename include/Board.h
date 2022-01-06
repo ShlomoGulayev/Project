@@ -29,7 +29,7 @@ using std::unique_ptr;
 class Board {
 public:
 	Board();
-	void setBoard(sf::Texture textures[], vector< unique_ptr <MovingObject > >& characters);
+	void setBoard(sf::Texture textures[], vector< unique_ptr <MovingObject > >& characters, vector< unique_ptr <MovingObject > >& gnomes);
 	void draw(sf::RenderWindow& window);
 	void createObject(sf::Texture textures[]);
 
@@ -40,5 +40,6 @@ private:
 	vector<string> m_board;
 	vector< unique_ptr <StaticObject> > m_static_objects;
 	vector< unique_ptr <MovingObject > >* m_characters;
+	vector< unique_ptr <MovingObject > >* m_gnomes;
 	
 };

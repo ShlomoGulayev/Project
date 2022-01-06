@@ -19,6 +19,7 @@ private:
 	sf::RenderWindow* m_window;
 	Board m_board;
 	std::vector< std::unique_ptr <MovingObject > > m_characters; 
+	std::vector< std::unique_ptr <MovingObject > > m_gnomes;
 	
 	sf::Texture m_textures[NUM_OF_PICS];
 	int m_curr_character;
