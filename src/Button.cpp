@@ -1,7 +1,7 @@
 #include "Button.h"
 
 //---------------------------------------------------
-Button::Button(sf::String text, const sf::Vector2f& position)
+Button::Button(std::string text, const sf::Vector2f& position)
     :m_button(sf::Vector2f(BUTTON_SIZE_WIDTH, BUTTON_SIZE_HEIGHT)), m_str(text)
 {
     m_font.loadFromFile("C:/Windows/Fonts/Arial.ttf");
@@ -35,7 +35,6 @@ bool Button::handleClick(const sf::Vector2f& location)
 {
     if (m_button.getGlobalBounds().contains(location))
         return true;
-
     return false;
 }
 

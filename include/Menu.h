@@ -25,7 +25,7 @@ private:
 	vector<string> m_texts = { "Start", "Instructions", "Exit" };
 	int m_last_button_over = 0;
 
-	sf::Texture m_background;
+	sf::Texture m_background_pic;
 	sf::Texture m_instruction_pic;
 	
 };

@@ -6,6 +6,7 @@ class Mage : public MovingObject
 {
 public:
 	Mage(sf::Vector2f loc, const sf::Texture& texture);
+	virtual void handleCollision(MovingObject& character) override;
 
 private:
 };

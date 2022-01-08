@@ -7,28 +7,26 @@ Menu::Menu()
     for (int i = 0; i < NUM_OF_BUTTONS; i++)
         m_buttons[i] = Button(m_texts[i], sf::Vector2f(WINDOW_WIDTH/2, 300 + i * 150));
  
-    m_instruction_pic.loadFromFile("instructions.png");   
-    m_background.loadFromFile("back.gif");
+    m_background_pic.loadFromFile("back.jpg");
+    m_instruction_pic.loadFromFile("instructions.png");
 }
-
 //--------------------------------------------------------
 void Menu::run()
-{
-    sf::Sprite background_pic(m_background);
-    background_pic.setScale(3.75, 3.25);
-    sf::Sprite instruction_pic(m_instruction_pic);
-    instruction_pic.setPosition(250, 100);
-    
+{ 
+    sf::Sprite background(m_background_pic);
+    sf::Sprite instructions(m_instruction_pic);
+    instructions.setPosition(sf::Vector2f(400, 200));
+
     bool instructions_pressed = false;
     
     while (m_window.isOpen())
     {
         m_window.clear();
-        m_window.draw(background_pic);
+        m_window.draw(background);
         drawButtons();
         
         if (instructions_pressed)
-            m_window.draw(instruction_pic);
+            m_window.draw(instructions);
 
         m_window.display();
 
@@ -76,14 +74,12 @@ void Menu::run()
         }
     }
 }
-
 //--------------------------------------------------------
 void Menu::drawButtons()
 {
     for (int i = 0; i < NUM_OF_BUTTONS; i++)
         m_buttons[i].draw(m_window);
 }
-
 //--------------------------------------------------------
 void Menu::doButton(const int index, bool &instruction_pressed)
 {

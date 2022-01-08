@@ -19,27 +19,30 @@
 #include "Gate.h"
 #include "Ogre.h"
 #include "Fire.h"
-#include "Gnome.h"
-
-using std::vector;
-using std::string;
-using std::unique_ptr;
 
 
 class Board {
 public:
 	Board();
-	void setBoard(sf::Texture textures[], vector< unique_ptr <MovingObject > >& characters, vector< unique_ptr <MovingObject > >& gnomes);
-	void draw(sf::RenderWindow& window);
-	void createObject(sf::Texture textures[]);
+	void setBoard(sf::Texture textures[], 
+				  std::vector< std::unique_ptr <MovingObject > > &characters, 
+				  std::vector< std::unique_ptr <StaticObject > > &static_objects);
+	void draw(sf::RenderWindow& window) const;
+	const sf::Vector2f& findNextLocationTeleport(const sf::Vector2f& loc);
+	float getWidthObject() const;
+	float getHeightObject() const;
 
 private:
+	void createObject(sf::Texture textures[]);
+	void resizeObjects();
+
 	int m_rows;
 	int m_cols;
+	float m_height_object_scale;
+	float m_width_object_scale;
 	
-	vector<string> m_board;
-	vector< unique_ptr <StaticObject> > m_static_objects;
-	vector< unique_ptr <MovingObject > >* m_characters;
-	vector< unique_ptr <MovingObject > >* m_gnomes;
-	
+	std::vector< std::string> m_board;
+	std::vector< std::unique_ptr <StaticObject > >* m_static_objects;
+	std::vector< std::unique_ptr <MovingObject > >* m_characters;
+	std::vector <std::unique_ptr <sf::Vector2f > > m_teleports;
 };

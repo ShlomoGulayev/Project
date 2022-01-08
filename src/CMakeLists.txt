@@ -9,4 +9,12 @@
 											  "Mage.cpp"
 											  "Warrior.cpp"
 											  "Thief.cpp"
-											  "Gnome.cpp")
+											  "StaticObject.cpp"
+											  "Fire.cpp"
+											  "Gate.cpp"
+											  "Key.cpp"
+											  "Ogre.cpp"
+											  "Teleport.cpp"
+											  "Throne.cpp"
+										      "Wall.cpp"
+											  "Clock.cpp")
