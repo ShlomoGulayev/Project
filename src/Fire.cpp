@@ -1,9 +1,32 @@
 #include "Fire.h"
 
-void Fire::handleCollision(GameObject& character)
+void Fire::handleCollision(GameObject& other_object)
 {
-	if (typeid(character) != typeid(Mage))
-		m_collision = Collisions::REGULAR_COLLISION;
-	else
-		m_collision = Collisions::DESTROY;
+	other_object.handleCollision(*this);
 }
+//-------------------------------------------------------------------------
+void Fire::handleCollision(King&) 
+{
+	m_collision = Collisions::REGULAR_COLLISION;
+}
+//-------------------------------------------------------------------------
+void Fire::handleCollision(Mage&) 
+{
+	m_collision = Collisions::DESTROY;
+}
+//-------------------------------------------------------------------------
+void Fire::handleCollision(Warrior&) 
+{
+	m_collision = Collisions::REGULAR_COLLISION;
+}
+//-------------------------------------------------------------------------
+void Fire::handleCollision(Thief&) 
+{
+	m_collision = Collisions::REGULAR_COLLISION;
+}
+//-------------------------------------------------------------------------
+void Fire::handleCollision(Gnome&) 
+{
+	m_collision = Collisions::REGULAR_COLLISION;
+}
+

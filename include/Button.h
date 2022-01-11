@@ -1,20 +1,20 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include <string.h>
 #include "macros.h"
+#include "Singleton.h"
 
 class Button
 {
 public:
 	Button() = default;
-	Button(std::string text, const sf::Vector2f& pos);
-	bool handleClick(const sf::Vector2f& location);
+	Button(const int& index);
+	bool handleMouseOver(const sf::Vector2f& location);
 	void draw(sf::RenderWindow& window);
-	void setColor(sf::Color color);
+	void setColor(const sf::Color& color);
 
 private:
+	void setButton(const int& index);
+
 	sf::RectangleShape m_button;
-	sf::Font m_font;
-	sf::Color m_color;
-	std::string m_str;
+	sf::Text m_text;
 };

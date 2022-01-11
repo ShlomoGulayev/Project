@@ -1,16 +1,37 @@
 #include "Key.h"
 
-void Key::handleCollision(GameObject& character)
+void Key::handleCollision(GameObject& other_object)
 {
-	if (typeid(character) == typeid(Thief))
+	other_object.handleCollision(*this);
+}
+//-------------------------------------------------------------------------
+void Key::handleCollision(King&)
+{
+	m_collision = Collisions::NO_COLLISION;
+}
+//-------------------------------------------------------------------------
+void Key::handleCollision(Mage&)
+{
+	m_collision = Collisions::NO_COLLISION;
+}
+//-------------------------------------------------------------------------
+void Key::handleCollision(Warrior&)
+{
+	m_collision = Collisions::NO_COLLISION;
+}
+//-------------------------------------------------------------------------
+void Key::handleCollision(Thief& thief)
+{
+	if (!thief.hasKey())
 	{
-		Thief* thief = dynamic_cast<Thief*> (&character);
-		if (!thief->hasKey())
-		{
-			thief->setKey();
-			m_collision = Collisions::DESTROY;
-		}
+		m_collision = Collisions::DESTROY;
+		thief.setKey();
 	}
 	else
 		m_collision = Collisions::NO_COLLISION;
+}
+//-------------------------------------------------------------------------
+void Key::handleCollision(Gnome&)
+{
+	m_collision = Collisions::NO_COLLISION;
 }

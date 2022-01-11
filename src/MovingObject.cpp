@@ -6,26 +6,32 @@ void MovingObject::setDirection(const sf::Keyboard::Key& key)
 	switch (key)
 	{
 	case sf::Keyboard::Key::Up:
-		m_direction = sf::Vector2f(0, -1); break;
+		m_direction = sf::Vector2f(0, -1); 
+		break;
+	
 	case sf::Keyboard::Key::Left:
-		m_direction = sf::Vector2f(-1, 0); break;
+		m_direction = sf::Vector2f(-1, 0);
+		if (m_right_pressed)
+			rotateSprite(-1, 1);
+		m_right_pressed = false; 
+		break;
+	
 	case sf::Keyboard::Key::Down:
-		m_direction = sf::Vector2f(0, 1); break;
+		m_direction = sf::Vector2f(0, 1); 
+		break;
+	
 	case sf::Keyboard::Key::Right:
-		m_direction = sf::Vector2f(1, 0); break;
+		m_direction = sf::Vector2f(1, 0);
+		if (!m_right_pressed)
+			rotateSprite(-1, 1);
+		m_right_pressed = true;
+		break;
 	}
 }
 //-------------------------------------------------------------------------
 void MovingObject::move(sf::Time deltaTime)
 {
-	const auto speedPerSecond = 200.f;
-	m_sprite.move(m_direction * speedPerSecond * deltaTime.asSeconds());
-}
-//-------------------------------------------------------------------------
-void MovingObject::handleCollision(GameObject& game_object)
-{
-	if (&game_object != this)
-		game_object.handleCollision(*this);
+	m_sprite.move(m_direction * m_speed_per_second * deltaTime.asSeconds());
 }
 //-------------------------------------------------------------------------
 bool MovingObject::isOnTeleport() const

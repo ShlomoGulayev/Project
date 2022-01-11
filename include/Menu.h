@@ -1,13 +1,10 @@
 #pragma once
-#include "macros.h"
-#include "Controller.h"
-#include "Button.h"
 #include <string>
 #include <vector>
-
-using std::string;
-using std::vector;
-
+#include "macros.h"
+#include "Singleton.h"
+#include "Controller.h"
+#include "Button.h"
 
 class Menu
 {
@@ -22,10 +19,4 @@ private:
 	Controller m_controller;
 	sf::RenderWindow m_window;
 	Button m_buttons[NUM_OF_BUTTONS];
-	vector<string> m_texts = { "Start", "Instructions", "Exit" };
-	int m_last_button_over = 0;
-
-	sf::Texture m_background_pic;
-	sf::Texture m_instruction_pic;
-	
 };

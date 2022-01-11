@@ -1,10 +1,7 @@
 #include "King.h"
 
-//---------------------------------------------------
-King::King(sf::Vector2f loc, const sf::Texture& texture)
-	:MovingObject(loc, texture)
-{}
-
-//---------------------------------------------------
-void King::handleCollision(MovingObject& character)
-{}
+//-------------------------------------------------------------------------
+void King::handleCollision(GameObject& other_object)
+{
+	other_object.handleCollision(*this);
+}

@@ -4,11 +4,12 @@
 class Thief : public MovingObject
 {
 public:
-	Thief(sf::Vector2f loc, const sf::Texture& texture);
-	virtual void handleCollision(MovingObject& character) override;
+	using MovingObject::MovingObject;
 	bool hasKey() const;
 	void setKey();
 
+	virtual void handleCollision(GameObject& character) override;
+	
 private:
-	bool m_key;
+	bool m_key= false;
 };

@@ -4,30 +4,25 @@
 Menu::Menu()
 	: m_window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Save The King"), m_controller(m_window)
 {
-    for (int i = 0; i < NUM_OF_BUTTONS; i++)
-        m_buttons[i] = Button(m_texts[i], sf::Vector2f(WINDOW_WIDTH/2, 300 + i * 150));
- 
-    m_background_pic.loadFromFile("back.jpg");
-    m_instruction_pic.loadFromFile("instructions.png");
+    for (int index = 0; index < NUM_OF_BUTTONS; index++)
+        m_buttons[index] = Button(index);
 }
 //--------------------------------------------------------
 void Menu::run()
 { 
-    sf::Sprite background(m_background_pic);
-    sf::Sprite instructions(m_instruction_pic);
-    instructions.setPosition(sf::Vector2f(400, 200));
-
+    sf::Sprite background = Singleton::instance().getMenuSprite(MENU_BACKGROUND_PIC);
+    sf::Sprite instructions = Singleton::instance().getMenuSprite(INSTRUCTION_PIC);
+    instructions.setPosition(sf::Vector2f(300, 100));
     bool instructions_pressed = false;
-    
+    int last_button_over = 0;
+
     while (m_window.isOpen())
     {
         m_window.clear();
         m_window.draw(background);
-        drawButtons();
-        
+        drawButtons();  
         if (instructions_pressed)
             m_window.draw(instructions);
-
         m_window.display();
 
         for (auto event = sf::Event{}; m_window.pollEvent(event);)
@@ -39,37 +34,30 @@ void Menu::run()
                 break;
             
             case sf::Event::MouseButtonReleased:
-            {
-                switch (event.mouseButton.button)
-                {
-                case sf::Mouse::Button::Left:
+                if (event.mouseButton.button == sf::Mouse::Button::Left)
                 {
                     instructions_pressed = false;
                     auto location = sf::Mouse::getPosition(m_window);
                     for (int i = 0; i < NUM_OF_BUTTONS; i++)
                     {
-                        if (m_buttons[i].handleClick((sf::Vector2f)location))
+                        if (m_buttons[i].handleMouseOver((sf::Vector2f)location))
                             doButton(i, instructions_pressed);
                     }
                 }
                 break;
-                }
-            break;
-            }
+            
             case sf::Event::MouseMoved:
-            {
                 auto location = sf::Mouse::getPosition(m_window); 
-                m_buttons[m_last_button_over].setColor(sf::Color(204, 0, 0));
+                m_buttons[last_button_over].setColor(sf::Color(204, 0, 0));
                 for (int i = 0; i < NUM_OF_BUTTONS; i++)
                 {
-                    if (m_buttons[i].handleClick((sf::Vector2f)location))
+                    if (m_buttons[i].handleMouseOver((sf::Vector2f)location))
                     {
                         m_buttons[i].setColor(sf::Color(255, 0, 0));
-                        m_last_button_over = i;
+                        last_button_over = i;
                     }
                 }
                 break;
-            }
             }
         }
     }
@@ -85,15 +73,15 @@ void Menu::doButton(const int index, bool &instruction_pressed)
 {
     switch(index)
     {
-    case Start:
+    case START:
         m_controller.run();
         break;
 
-    case Instructions:
+    case INSTRUCTIONS:
         instruction_pressed = true;
         break;
 
-    case Exit:
+    case EXIT:
         m_window.close();
         break;
     }

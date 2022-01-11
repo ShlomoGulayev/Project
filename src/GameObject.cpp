@@ -1,8 +1,8 @@
 #include "GameObject.h"
 
 //-------------------------------------------------------------------------
-GameObject::GameObject(const sf::Vector2f& loc, const sf::Texture& texture)
-	:m_sprite(texture)
+GameObject::GameObject(const sf::Vector2f& loc, const sf::Texture* texture)
+	:m_sprite(*texture)
 {
 	m_sprite.setPosition(loc);
 	m_sprite.setOrigin(sf::Vector2f(m_sprite.getTexture()->getSize() / 2u));

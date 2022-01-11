@@ -1,12 +1,11 @@
 #pragma once
 #include "MovingObject.h"
 
-
 class Mage : public MovingObject
 {
 public:
-	Mage(sf::Vector2f loc, const sf::Texture& texture);
-	virtual void handleCollision(MovingObject& character) override;
+	using MovingObject::MovingObject;
+	virtual void handleCollision(GameObject& character) override;
 
 private:
 };

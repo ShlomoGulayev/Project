@@ -1,10 +1,31 @@
 #include "Throne.h"
 
-void Throne::handleCollision(GameObject& character)
+void Throne::handleCollision(GameObject& other_object)
 {
-	if (typeid(character) != typeid(King))
-		m_collision = Collisions::REGULAR_COLLISION;
-	else
-		m_collision = Collisions::WON;
+	other_object.handleCollision(*this);
 }
-
+//-------------------------------------------------------------------------
+void Throne::handleCollision(King&)
+{
+	m_collision = Collisions::WON;
+}
+//-------------------------------------------------------------------------
+void Throne::handleCollision(Mage&)
+{
+	m_collision = Collisions::REGULAR_COLLISION;
+}
+//-------------------------------------------------------------------------
+void Throne::handleCollision(Warrior&)
+{
+	m_collision = Collisions::REGULAR_COLLISION;
+}
+//-------------------------------------------------------------------------
+void Throne::handleCollision(Thief&)
+{
+	m_collision = Collisions::REGULAR_COLLISION;
+}
+//-------------------------------------------------------------------------
+void Throne::handleCollision(Gnome&)
+{
+	m_collision = Collisions::REGULAR_COLLISION;
+}

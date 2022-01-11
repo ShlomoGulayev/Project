@@ -9,6 +9,7 @@
 											  "Mage.cpp"
 											  "Warrior.cpp"
 											  "Thief.cpp"
+											  "Gnome.cpp"
 											  "StaticObject.cpp"
 											  "Fire.cpp"
 											  "Gate.cpp"
@@ -17,4 +18,8 @@
 											  "Teleport.cpp"
 											  "Throne.cpp"
 										      "Wall.cpp"
-											  "Clock.cpp")
+											  "Gift1.cpp"
+											  "Gift2.cpp"
+											  "Gift3.cpp"
+											  "Clock.cpp"
+											  "Singleton.cpp")
