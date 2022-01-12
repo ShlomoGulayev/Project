@@ -12,6 +12,7 @@ public:
 	sf::Texture* getObjectTexture(const int index);
 	sf::Font* getFont();
 	void playSound(const int index);
+	void playMusic();
 
 private:
 	Singleton();

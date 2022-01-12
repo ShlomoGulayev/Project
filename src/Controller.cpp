@@ -308,6 +308,7 @@ void Controller::setLevel()
     case 3: m_info_line.setTimeLeft(200); break;
     }
     Singleton::instance().playSound(START_SOUND);
+    Singleton::instance().playMusic();
     for (int i = CHARACTERS; i < m_characters.size(); i++)
     {
         m_clock_gnomes.push_back(sf::Clock());
