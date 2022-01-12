@@ -3,15 +3,17 @@
 #include "macros.h"
 #include "Singleton.h"
 
-class Clock
+class InfoLine
 {
 public:
-	Clock();
-	void updateTime(float time);
+	InfoLine();
+	void updateTime();
 	void updateLevel();
 	float getTime() const;
 	void setTimeLeft(const float& time);
+	void restartTime();
 	void draw(sf::RenderWindow& window);
+	int getLevel() const;
 
 private:
 	void setText();

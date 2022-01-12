@@ -21,5 +21,5 @@
 											  "Gift1.cpp"
 											  "Gift2.cpp"
 											  "Gift3.cpp"
-											  "Clock.cpp"
+											  "InfoLine.cpp"
 											  "Singleton.cpp")

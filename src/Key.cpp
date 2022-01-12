@@ -24,7 +24,7 @@ void Key::handleCollision(Thief& thief)
 {
 	if (!thief.hasKey())
 	{
-		m_collision = Collisions::DESTROY;
+		m_collision = Collisions::KEY;
 		thief.setKey();
 	}
 	else

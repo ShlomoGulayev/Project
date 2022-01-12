@@ -15,7 +15,7 @@ constexpr auto NUM_OF_MENU_PICS = 3;
 //Board related
 constexpr auto BOARD_WIDTH = 1600;
 constexpr auto BOARD_HEIGHT = 650;
-constexpr auto NUM_OF_OBJECT_PICS = 13;
+constexpr auto NUM_OF_OBJECT_PICS = 14;
 constexpr auto CHARACTERS = 4;
 constexpr auto OBJECT_SIZE_PIXEL = 100;
 //-------------------------------------------------------------------------
@@ -34,12 +34,12 @@ enum MenuButtons
 //-------------------------------------------------------------------------
 enum Objects
 {
-	KING, MAGE, WARRIOR, THIEF, OGRE, KEY, TELEPORT, FIRE, THRONE, WALL, GATE, GNOME, GIFT
+	KING, MAGE, WARRIOR, THIEF, THIEF_KEY, OGRE, KEY, TELEPORT, FIRE, THRONE, WALL, GATE, GNOME, GIFT
 };
 //-------------------------------------------------------------------------
 enum class Collisions
 {
-	NO_COLLISION, REGULAR_COLLISION, DESTROY, OGRE, WON, TELEPORT, GIFT1, GIFT2, GIFT3
+	NO_COLLISION, REGULAR_COLLISION, KEY, GATE, FIRE, OGRE, WON, TELEPORT, GIFT1, GIFT2, GIFT3
 };
 //-------------------------------------------------------------------------
 const std::string MENU_BUTTONS_TEXT[NUM_OF_BUTTONS] = { "Start", 
@@ -47,10 +47,12 @@ const std::string MENU_BUTTONS_TEXT[NUM_OF_BUTTONS] = { "Start",
 														"Exit" 
 													   };
 //-------------------------------------------------------------------------
-const std::string OBJECT_TEXTURES[NUM_OF_OBJECT_PICS] = { "king.png", 
+const std::string OBJECT_TEXTURES[NUM_OF_OBJECT_PICS] = { 
+												   "king.png", 
 												   "mage.png", 
 												   "warrior.png", 
 												   "thief.png",
+												   "thiefKey.png",
 												   "ogre.png",
 												   "key.png",
 												   "portal.png",

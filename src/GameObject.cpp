@@ -39,3 +39,13 @@ sf::FloatRect GameObject::getGlobalBoundsSprite() const
 {
 	return m_sprite.getGlobalBounds();
 }
+//-------------------------------------------------------------------------
+sf::Vector2f GameObject::getScaleSprite() const
+{
+	return m_sprite.getScale();
+}
+//-------------------------------------------------------------------------
+void GameObject::setTexture(const sf::Texture* texture)
+{
+	m_sprite.setTexture(*texture);
+}

@@ -24,16 +24,18 @@ public:
 	void draw(sf::RenderWindow& window) const;
 	bool checkCollision(const GameObject& other);
 	void setLocation(const sf::Vector2f& loc);
+	void setTexture(const sf::Texture* texture);
 	const sf::Vector2f& getLocation() const;
 	sf::FloatRect getGlobalBoundsSprite() const;
+	sf::Vector2f getScaleSprite() const;
 	virtual ~GameObject() = default;
 
-	virtual void handleCollision(GameObject& other_object) = 0;
-	virtual void handleCollision(King& king) = 0;
-	virtual void handleCollision(Mage& mage) = 0;
-	virtual void handleCollision(Warrior& warrior) = 0;
-	virtual void handleCollision(Thief& thief) = 0;
-	virtual void handleCollision(Gnome& gnome) = 0;
+	virtual void handleCollision(GameObject&) = 0;
+	virtual void handleCollision(King&) = 0;
+	virtual void handleCollision(Mage&) = 0;
+	virtual void handleCollision(Warrior&) = 0;
+	virtual void handleCollision(Thief&) = 0;
+	virtual void handleCollision(Gnome&) = 0;
 	virtual void handleCollision(Fire&) = 0;
 	virtual void handleCollision(Gate&) = 0;
 	virtual void handleCollision(Gift1&) = 0;

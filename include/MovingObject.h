@@ -9,14 +9,15 @@ public:
 	void rotateSprite(const float& new_width_sclae, const float& new_height_sclae);
 	void move(sf::Time deltaTime);
 	bool isOnTeleport() const;
-	void setIsOnTeleport(const bool is_on);
-
-	virtual void handleCollision(GameObject& ) override {}
-	virtual void handleCollision(King& ) override {}
-	virtual void handleCollision(Mage& ) override {}
-	virtual void handleCollision(Warrior& ) override {}
-	virtual void handleCollision(Thief& ) override {}
-	virtual void handleCollision(Gnome& ) override {}
+	bool isRightPressed() const;
+	void setIsOnTeleport(const bool& is_on);
+	
+	virtual void handleCollision(GameObject&) override {}
+	virtual void handleCollision(King&) override {}
+	virtual void handleCollision(Mage&) override {}
+	virtual void handleCollision(Warrior&) override {}
+	virtual void handleCollision(Thief&) override {}
+	virtual void handleCollision(Gnome&) override {}
 	virtual void handleCollision(Fire&) override {}
 	virtual void handleCollision(Gate&) override {}
 	virtual void handleCollision(Gift1&) override {}

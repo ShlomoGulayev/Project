@@ -1,8 +1,10 @@
 #pragma once
+#include <iostream>
 #include <vector>
 #include <ctime>
+#include <fstream>
 #include "Board.h"
-#include "Clock.h"
+#include "InfoLine.h"
 #include "macros.h"
 #include "Singleton.h"
 
@@ -10,23 +12,35 @@ class Controller {
 public:
 	Controller(sf::RenderWindow& window);
 	void run();
+	~Controller();
 
 private:
-	void NextCharacter();
+	void setPauseMessage();
+	void setLevel();
+	void setRectPlayer();
+	void nextCharacter();
 	void manageCollision(sf::Time& deltaTime, sf::Clock& clock);
-	bool collisionWithBoundaries(const sf::Vector2f& last_location);
-	bool collisionWithCharacters(const sf::Vector2f& last_location);
-	bool collisionWithStasticObjects(const sf::Vector2f& last_location);
+	void collisionWithBoundaries(const sf::Vector2f& last_location);
+	void collisionWithCharacters(const sf::Vector2f& last_location);
+	void collisionWithStasticObjects(const sf::Vector2f& last_location);
 	void eraseStaticObject(StaticObject& static_object);
 	void eraseGnomes();
 
 	Board m_board;
-	Clock m_timer;
-
-	sf::RenderWindow *m_window;
-	std::vector< std::unique_ptr <MovingObject > > m_characters; 
+	InfoLine m_info_line;
+	sf::RenderWindow* m_window;
+	std::vector< std::unique_ptr <MovingObject > > m_characters;
 	std::vector< std::unique_ptr <StaticObject > > m_static_objects;
+	std::vector < sf::Clock > m_clock_gnomes;
 
+	bool m_is_playing;
+	bool m_new_level;
+	bool m_end_game;
+	std::string m_curr_level;
+	std::fstream m_file_levels;
+	sf::Text m_pause_message;
+	
 	int m_curr_character;
+	sf::RectangleShape m_rect_player;
 };
 

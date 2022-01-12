@@ -29,14 +29,13 @@
 class Board {
 public:
 	Board();
-	void setBoard(std::vector< std::unique_ptr <MovingObject > > &characters, 
+	void setBoard(std::string name_level,
+				  std::vector< std::unique_ptr <MovingObject > > &characters, 
 				  std::vector< std::unique_ptr <StaticObject > > &static_objects);
 	void draw(sf::RenderWindow& window) const;
 	
 	const sf::Vector2f& findNextLocationTeleport(const sf::Vector2f& loc);
-	int getGnomeSize() const;
-	int getGnome(int index) const;
-	void eraseGnomes();
+	void resizeObject(GameObject& game_object);
 
 private:
 	void createObject();
@@ -51,5 +50,4 @@ private:
 	std::vector< std::unique_ptr <StaticObject > >* m_static_objects;
 	std::vector< std::unique_ptr <MovingObject > >* m_characters;
 	std::vector <std::unique_ptr <sf::Vector2f > > m_teleports;
-	std::vector <int> m_index_gnomes;
 };

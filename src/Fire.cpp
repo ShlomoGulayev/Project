@@ -12,7 +12,7 @@ void Fire::handleCollision(King&)
 //-------------------------------------------------------------------------
 void Fire::handleCollision(Mage&) 
 {
-	m_collision = Collisions::DESTROY;
+	m_collision = Collisions::FIRE;
 }
 //-------------------------------------------------------------------------
 void Fire::handleCollision(Warrior&) 

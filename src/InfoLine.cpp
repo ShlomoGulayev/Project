@@ -1,12 +1,12 @@
-#include "Clock.h"
+#include "InfoLine.h"
 
-Clock::Clock()
+InfoLine::InfoLine()
 :m_time_left(0), m_level(0)
 {
 	setText();
 }
 //-------------------------------------------------------------------------
-void Clock::setText()
+void InfoLine::setText()
 {
 	m_text_timer.setFont(*Singleton::instance().getFont());
 	int size = 40;
@@ -17,9 +17,8 @@ void Clock::setText()
 	m_text_timer.setOutlineThickness(3);
 }
 //-------------------------------------------------------------------------
-void Clock::updateTime(float time)
+void InfoLine::updateTime()
 {
-	m_time_left += time;
 	m_time_left -= m_timer.getElapsedTime().asSeconds();
 	int minutes = m_time_left / 60;
 	int seconds = (int)m_time_left % 60;
@@ -30,26 +29,34 @@ void Clock::updateTime(float time)
 	m_timer.restart();
 }
 //-------------------------------------------------------------------------
-float Clock::getTime() const
+float InfoLine::getTime() const
 {
 	return m_time_left;
 }
-
 //-------------------------------------------------------------------------
-void Clock::setTimeLeft(const float& time)
+void InfoLine::setTimeLeft(const float& time)
 {
-	m_time_left += time;
+	m_time_left = time;
 } 
 //-------------------------------------------------------------------------
-void Clock::draw(sf::RenderWindow& window)
+void InfoLine::draw(sf::RenderWindow& window)
 {
-	updateTime(0);
+	updateTime();
 	window.draw(m_text_timer);
 }
 //-------------------------------------------------------------------------
-void Clock::updateLevel()
+void InfoLine::updateLevel()
 {
-	this->m_level++;
-	this->m_timer.restart();
-
+	m_level++;
+	m_timer.restart();
+}
+//-------------------------------------------------------------------------
+void InfoLine::restartTime()
+{
+	m_timer.restart();
+}
+//-------------------------------------------------------------------------
+int InfoLine::getLevel() const
+{
+	return m_level;
 }

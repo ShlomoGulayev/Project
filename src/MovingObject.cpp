@@ -39,7 +39,7 @@ bool MovingObject::isOnTeleport() const
 	return m_is_on_teleport;
 }
 //-------------------------------------------------------------------------
-void MovingObject::setIsOnTeleport(const bool is_on)
+void MovingObject::setIsOnTeleport(const bool& is_on)
 {
 	m_is_on_teleport = is_on;
 }
@@ -47,4 +47,9 @@ void MovingObject::setIsOnTeleport(const bool is_on)
 void MovingObject::rotateSprite(const float& new_width_sclae, const float& new_height_sclae)
 {
 	m_sprite.scale(new_width_sclae, new_height_sclae);
+}
+//-------------------------------------------------------------------------
+bool MovingObject::isRightPressed() const
+{
+	return m_right_pressed;
 }
