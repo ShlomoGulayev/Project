@@ -51,8 +51,8 @@ void Singleton::loadSounds()
 		m_sound[i].setBuffer(m_buffer[i]);
 	}
 	m_sound[Sounds::KEY_SOUND].setPlayingOffset(sf::seconds(6.f));
-	m_music.openFromFile("mk.ogg");
-	m_music.setVolume(0.5f);
+	m_music.openFromFile("song.wav");
+	m_music.setVolume(15.f);
 }
 //-------------------------------------------------------------------------
 sf::Sprite Singleton::getMenuSprite(const int index) const
