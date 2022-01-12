@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 //-------------------------------------------------------------------------
 //Window related
@@ -18,6 +19,7 @@ constexpr auto BOARD_HEIGHT = 650;
 constexpr auto NUM_OF_OBJECT_PICS = 14;
 constexpr auto CHARACTERS = 4;
 constexpr auto OBJECT_SIZE_PIXEL = 100;
+constexpr auto NUM_OF_SOUNDS = 12;
 //-------------------------------------------------------------------------
 //Clock related
 constexpr auto ADD_TIME = 5.f;
@@ -34,12 +36,14 @@ enum MenuButtons
 //-------------------------------------------------------------------------
 enum Objects
 {
-	KING, MAGE, WARRIOR, THIEF, THIEF_KEY, OGRE, KEY, TELEPORT, FIRE, THRONE, WALL, GATE, GNOME, GIFT
+	KING, MAGE, WARRIOR, THIEF, THIEF_KEY, OGRE, KEY, TELEPORT, FIRE, 
+	THRONE, WALL, GATE, GNOME, GIFT
 };
 //-------------------------------------------------------------------------
 enum class Collisions
 {
-	NO_COLLISION, REGULAR_COLLISION, KEY, GATE, FIRE, OGRE, WON, TELEPORT, GIFT1, GIFT2, GIFT3
+	NO_COLLISION, REGULAR_COLLISION, KEY, GATE, FIRE, OGRE, WON, TELEPORT,
+	GIFT1, GIFT2, GIFT3
 };
 //-------------------------------------------------------------------------
 const std::string MENU_BUTTONS_TEXT[NUM_OF_BUTTONS] = { "Start", 
@@ -68,4 +72,24 @@ const std::string MENU_TEXTURES[NUM_OF_MENU_PICS] = { "bg_menu.jpg",
 													  "instructions.png",
 													  "bg_controller.jpg"
 													};
+//-------------------------------------------------------------------------
+enum Sounds
+{
+	TELEPORT_SOUND, OGRE_SOUND, THRONE_SOUND, WALL_SOUND, FIRE_SOUND, KEY_SOUND, 
+	GATE_SOUND, SWITCH_SOUND, START_SOUND, GOOD_GIFT_SOUND, BAD_GIFT_SOUND, REMOVE_GNOME_SOUND
+};
+//-------------------------------------------------------------------------
+const std::string sound_names[NUM_OF_SOUNDS] = { "teleport.wav",
+												 "sword.wav",
+												 "victory.wav",
+												 "bump.wav",
+												 "magic.wav",
+												 "key.wav",
+												 "gate.wav",
+												 "switch.wav",
+												 "begin.wav",
+											     "goodgift.wav",
+												 "badgift.wav",
+												 "removegnome.wav"
+};
 //-------------------------------------------------------------------------

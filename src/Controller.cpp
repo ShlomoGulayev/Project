@@ -29,7 +29,10 @@ void Controller::run()
             if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::Escape))
             {
                 if (!m_is_playing)
+                {
+                    m_is_playing = true;
                     return;
+                }
                 m_is_playing = false;
                 m_pause_message.setString("press space to resume the game!\npress escape to return to menu");
             }
@@ -109,6 +112,7 @@ void Controller::run()
 //-------------------------------------------------------------------------
 void Controller::nextCharacter()
 {
+    Singleton::instance().playSound(SWITCH_SOUND);
     do {
         m_curr_character = ++m_curr_character % m_characters.size();
     } while (typeid(*m_characters[m_curr_character]) == typeid(Gnome));
@@ -194,24 +198,27 @@ void Controller::collisionWithStasticObjects(const sf::Vector2f& last_location)
             switch (static_object->getCollision())
             {
             case Collisions::REGULAR_COLLISION:
+                Singleton::instance().playSound(WALL_SOUND);
                 m_characters[m_curr_character]->setLocation(last_location);
                 if (typeid(*m_characters[m_curr_character]) == typeid(Gnome))
                     m_characters[m_curr_character]->setDirection(sf::Keyboard::Down);
                 return ;
-
             case Collisions::WON:
+                Singleton::instance().playSound(THRONE_SOUND);
                 m_is_playing = false;
                 m_pause_message.setString("You passed the level! :)\n next level press space");
                 m_new_level = true;
                 return ;
 
             case Collisions::OGRE:
+                Singleton::instance().playSound(OGRE_SOUND);
                 m_static_objects.push_back(std::make_unique<Key>(static_object->getLocation(), Singleton::instance().getObjectTexture(KEY)));
                 m_board.resizeObject(*m_static_objects[m_static_objects.size()-1]);
                 eraseStaticObject(*static_object);
                 return ;
 
             case Collisions::KEY:
+                Singleton::instance().playSound(KEY_SOUND);
                 eraseStaticObject(*static_object);
                 m_characters[m_curr_character]->setTexture(Singleton::instance().getObjectTexture(THIEF_KEY));
                 m_board.resizeObject(*m_characters[m_curr_character]);
@@ -220,6 +227,7 @@ void Controller::collisionWithStasticObjects(const sf::Vector2f& last_location)
                 return ;
             
             case Collisions::GATE:
+                Singleton::instance().playSound(GATE_SOUND);
                 eraseStaticObject(*static_object);
                 m_characters[m_curr_character]->setTexture(Singleton::instance().getObjectTexture(THIEF));
                 m_board.resizeObject(*m_characters[m_curr_character]);
@@ -228,6 +236,7 @@ void Controller::collisionWithStasticObjects(const sf::Vector2f& last_location)
                 return ;
             
             case Collisions::FIRE:
+                Singleton::instance().playSound(FIRE_SOUND);
                 eraseStaticObject(*static_object);
                 return;
 
@@ -238,19 +247,23 @@ void Controller::collisionWithStasticObjects(const sf::Vector2f& last_location)
                     if (character->isOnTeleport())
                         return ;
                 }
+                Singleton::instance().playSound(TELEPORT_SOUND);
                 m_characters[m_curr_character]->setLocation(m_board.findNextLocationTeleport(static_object->getLocation()));
                 m_characters[m_curr_character]->setIsOnTeleport(true);
                 return ;
             }
             case Collisions::GIFT1:
+                Singleton::instance().playSound(GOOD_GIFT_SOUND);
                 eraseStaticObject(*static_object);
                 m_info_line.setTimeLeft(m_info_line.getTime() + ADD_TIME);
                 return ;
             case Collisions::GIFT2:
+                Singleton::instance().playSound(BAD_GIFT_SOUND);
                 eraseStaticObject(*static_object);
                 m_info_line.setTimeLeft(m_info_line.getTime() - ADD_TIME);
                 return ;
             case Collisions::GIFT3:
+                Singleton::instance().playSound(REMOVE_GNOME_SOUND);
                 eraseStaticObject(*static_object);
                 eraseGnomes();
                 return ;
@@ -282,20 +295,19 @@ void Controller::setLevel()
         }
         m_new_level = false;
         m_info_line.updateLevel();
-        switch (m_info_line.getLevel())
-        {
-        case 1: m_info_line.setTimeLeft(100); break;
-        case 2: m_info_line.setTimeLeft(150); break;
-        case 3: m_info_line.setTimeLeft(200); break;
-        }
     }
     else
     {
         m_board.setBoard(m_curr_level, m_characters, m_static_objects);
         m_info_line.restartTime();
-        m_info_line.setTimeLeft(50);
     }
-
+    switch (m_info_line.getLevel())
+    {
+    case 1: m_info_line.setTimeLeft(100); break;
+    case 2: m_info_line.setTimeLeft(150); break;
+    case 3: m_info_line.setTimeLeft(200); break;
+    }
+    Singleton::instance().playSound(START_SOUND);
     for (int i = CHARACTERS; i < m_characters.size(); i++)
     {
         m_clock_gnomes.push_back(sf::Clock());

@@ -3,9 +3,11 @@
 Singleton::Singleton()
 {
 	srand(static_cast<unsigned int>(time(NULL)));
+	loadSounds();
 	loadMenuPictures();
 	loadTexturesObjects();
 	loadFont();
+	
 }
 //-------------------------------------------------------------------------
 Singleton& Singleton::instance()
@@ -25,10 +27,31 @@ void Singleton::loadTexturesObjects()
 	for (int i = 0; i < NUM_OF_OBJECT_PICS; i++)
 		m_textures_objects[i].loadFromFile(OBJECT_TEXTURES[i]);
 }
+
+//-------------------------------------------------------------------------
+//sf::Sound* Singleton::getSound(const int index)
+//{
+	//return &m_sounds[index];
+//}
+//-------------------------------------------------------------------------
+void Singleton::playSound(const int index)
+{
+	m_sound[index].play();
+}
 //-------------------------------------------------------------------------
 void Singleton::loadFont()
 {
 	m_font.loadFromFile("C:/Windows/Fonts/Arial.ttf");
+}
+//-------------------------------------------------------------------------
+void Singleton::loadSounds()
+{
+	for (int i = 0; i < NUM_OF_SOUNDS; i++)
+	{
+		m_buffer[i].loadFromFile(sound_names[i]);
+		m_sound[i].setBuffer(m_buffer[i]);
+	}
+	m_sound[Sounds::KEY_SOUND].setPlayingOffset(sf::seconds(6.f));
 }
 //-------------------------------------------------------------------------
 sf::Sprite Singleton::getMenuSprite(const int index) const
