@@ -100,7 +100,8 @@ static std::unique_ptr<StaticObject> createStaticObject(const char c,
 //-------------------------------------------------------------------------
 void Board::createObject()
 {
-	std::vector<std::unique_ptr<MovingObject>> vec_tmp;
+	std::vector<std::unique_ptr<MovingObject>> vec_tmp_gnomes;
+	std::vector<std::unique_ptr<StaticObject>> vec_tmp_teleports;
 	float width_object_scale =  (float)BOARD_WIDTH / (float)m_cols;
 	float height_object_scale = (float)BOARD_HEIGHT / (float)m_rows;
 	for (int row = 0; row < m_rows; row++)
@@ -119,17 +120,23 @@ void Board::createObject()
 			else if (c != ' ' && c != '^')
 			{
 				std::unique_ptr<StaticObject> static_object = createStaticObject(c, loc);
-				m_static_objects->push_back(std::move(static_object));
+				if (c == 'X')
+				{
+					m_teleports.push_back(std::make_unique<sf::Vector2f>(loc));
+					vec_tmp_teleports.push_back(std::move(static_object));
+				}
+				else
+					m_static_objects->push_back(std::move(static_object));
 			}
-			else if(c != ' ')
-				vec_tmp.push_back(std::move(moving_object));
-			
-			if (c == 'X')
-				m_teleports.push_back(std::make_unique<sf::Vector2f>(loc));
+			else if(c == '^')
+				vec_tmp_gnomes.push_back(std::move(moving_object));
 		}
 	}
-	for (auto moving_ptr = vec_tmp.begin(); moving_ptr != vec_tmp.end(); moving_ptr++)
+	for (auto moving_ptr = vec_tmp_gnomes.begin(); moving_ptr != vec_tmp_gnomes.end(); moving_ptr++)
 		m_characters->push_back(std::move(*moving_ptr));
+	for (auto static_ptr = vec_tmp_teleports.begin(); static_ptr != vec_tmp_teleports.end(); static_ptr++)
+		m_static_objects->push_back(std::move(*static_ptr));
+	
 }
 //-------------------------------------------------------------------------
 void Board::resizeObjects()

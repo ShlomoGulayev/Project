@@ -198,10 +198,11 @@ void Controller::collisionWithStasticObjects(const sf::Vector2f& last_location)
             switch (static_object->getCollision())
             {
             case Collisions::REGULAR_COLLISION:
-                Singleton::instance().playSound(WALL_SOUND);
                 m_characters[m_curr_character]->setLocation(last_location);
                 if (typeid(*m_characters[m_curr_character]) == typeid(Gnome))
                     m_characters[m_curr_character]->setDirection(sf::Keyboard::Down);
+                else
+                    Singleton::instance().playSound(WALL_SOUND);
                 return ;
             case Collisions::WON:
                 Singleton::instance().playSound(THRONE_SOUND);
