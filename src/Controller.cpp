@@ -304,7 +304,7 @@ void Controller::setLevel()
     }
     switch (m_info_line.getLevel())
     {
-    case 1: m_info_line.setTimeLeft(100); break;
+    case 1: m_info_line.setTimeLeft(180); break;
     case 2: m_info_line.setTimeLeft(150); break;
     case 3: m_info_line.setTimeLeft(200); break;
     }
