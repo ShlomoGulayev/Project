@@ -39,7 +39,6 @@ public:
 
 private:
 	void createObject();
-	void resizeObjects();
 	void setLine();
 
 	int m_rows;
