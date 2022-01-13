@@ -39,7 +39,6 @@ void Board::setBoard(std::string name_level,
 	m_static_objects = &static_objects;
 	
 	createObject();
-	resizeObjects();
 }
 //-------------------------------------------------------------------------
 void Board::setLine()
@@ -113,13 +112,18 @@ void Board::createObject()
 			char c = m_board[row][col];
 			
 			std::unique_ptr<MovingObject> moving_object = createMovingObject(c, loc);
-			if (moving_object && c != '^')
+			if (moving_object)
 			{
-				m_characters->push_back(std::move(moving_object));
+				resizeObject(*moving_object);
+				if(c == '^')
+					vec_tmp_gnomes.push_back(std::move(moving_object));
+				else
+					m_characters->push_back(std::move(moving_object));
 			}
-			else if (c != ' ' && c != '^')
+			std::unique_ptr<StaticObject> static_object = createStaticObject(c, loc);
+			if (static_object)
 			{
-				std::unique_ptr<StaticObject> static_object = createStaticObject(c, loc);
+				resizeObject(*static_object);
 				if (c == 'X')
 				{
 					m_teleports.push_back(std::make_unique<sf::Vector2f>(loc));
@@ -128,29 +132,13 @@ void Board::createObject()
 				else
 					m_static_objects->push_back(std::move(static_object));
 			}
-			else if(c == '^')
-				vec_tmp_gnomes.push_back(std::move(moving_object));
 		}
 	}
+	
 	for (auto moving_ptr = vec_tmp_gnomes.begin(); moving_ptr != vec_tmp_gnomes.end(); moving_ptr++)
 		m_characters->push_back(std::move(*moving_ptr));
 	for (auto static_ptr = vec_tmp_teleports.begin(); static_ptr != vec_tmp_teleports.end(); static_ptr++)
 		m_static_objects->push_back(std::move(*static_ptr));
-	
-}
-//-------------------------------------------------------------------------
-void Board::resizeObjects()
-{
-	float width_object_scale = (float)BOARD_WIDTH / (float)m_cols;
-	float height_object_scale = (float)BOARD_HEIGHT / (float)m_rows;
-
-	for (auto& moving_object : *m_characters)
-		moving_object->setSpriteScale(width_object_scale / (float)(OBJECT_SIZE_PIXEL + 20),
-									  height_object_scale / (float)(OBJECT_SIZE_PIXEL + 20));
-
-	for (auto& static_object : *m_static_objects)
-		static_object->setSpriteScale(width_object_scale / (float)(OBJECT_SIZE_PIXEL + 5),
-								      height_object_scale / (float)(OBJECT_SIZE_PIXEL + 5));
 }
 //-------------------------------------------------------------------------
 const sf::Vector2f& Board::findNextLocationTeleport(const sf::Vector2f& loc)
@@ -177,6 +165,6 @@ void Board::resizeObject(GameObject& game_object)
 		game_object.setSpriteScale(width_object_scale / (float)(OBJECT_SIZE_PIXEL + 5),
 		height_object_scale / (float)(OBJECT_SIZE_PIXEL + 5));
 	else
-		game_object.setSpriteScale(width_object_scale / (float)(OBJECT_SIZE_PIXEL + 10),
-			height_object_scale / (float)(OBJECT_SIZE_PIXEL + 10));
+		game_object.setSpriteScale(width_object_scale / (float)(OBJECT_SIZE_PIXEL + 20),
+			height_object_scale / (float)(OBJECT_SIZE_PIXEL + 20));
 }
